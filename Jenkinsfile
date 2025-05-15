@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("linuxgray/devops")
+       app = docker.build("linuxgray039/test")
     }
 
     stage('Test image') {
