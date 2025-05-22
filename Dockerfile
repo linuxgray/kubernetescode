@@ -5,7 +5,12 @@ FROM python:3.8-slim-buster
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-RUN pip3 install requirements.txt
+#RUN pip3 install requirements.txt
+RUN pip3 install werkzeug==2.0.3
+RUN pip3 install --upgrade Flask
+RUN pip3 install --upgrade Werkzeug
+
+
 
 
 COPY . .
