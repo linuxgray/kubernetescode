@@ -1,13 +1,17 @@
-# syntax=docker/dockerfile:1
+# Use Python 3.12 base image
+FROM python:3.12-slim
 
-FROM python:3.8-slim-buster
-
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip3 install requirements.txt
-
-
+# Copy application code
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# Install correct packages
+RUN pip install Flask==2.0.3 Werkzeug==2.0.3
+
+# Expose port
+EXPOSE 5000
+
+# Run app
+CMD ["python", "app.py"]
