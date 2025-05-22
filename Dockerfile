@@ -7,10 +7,6 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip3 install requirements.txt
 
-RUN pip3 install --upgrade Werkzeug
-
-
-
 
 COPY . .
 
