@@ -1,2 +1,2 @@
-Flask
-werkzeug
+Flask<2.2
+werkzeug==2.0.3
