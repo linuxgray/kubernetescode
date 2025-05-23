@@ -1,17 +1,13 @@
-# Use Python 3.12 base image
-FROM python:3.12-slim
+FROM python:3.8-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy application code
+COPY requirements.txt .
+
+RUN pip install -r requirements.txt
+# Or directly:
+# RUN pip install Flask==2.0.3 Werkzeug==2.0.3
+
 COPY . .
 
-# Install correct packages
-RUN pip install Flask==2.0.3 Werkzeug==2.0.3
-
-# Expose port
-EXPOSE 5000
-
-# Run app
 CMD ["python", "app.py"]
