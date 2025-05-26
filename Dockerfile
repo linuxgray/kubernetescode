@@ -1,13 +1,12 @@
-FROM python:3.8-slim
+# syntax=docker/dockerfile:1
+
+FROM python:3.8-slim-buster
 
 WORKDIR /app
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-# Or directly:
-# RUN pip install Flask==2.0.3 Werkzeug==2.0.3
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "app.py"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
