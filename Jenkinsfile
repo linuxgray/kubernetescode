@@ -1,16 +1,20 @@
 node {
     def app
-    def dockerTag = "${env.BUILD_NUMBER}"
 
     stage('Clone repository') {
+      
+
         checkout scm
     }
 
     stage('Build image') {
-        app = docker.build("linuxgray039/test:${dockerTag}")
+  
+       app = docker.build("linuxgray039/test")
     }
 
     stage('Test image') {
+  
+
         app.inside {
             sh 'echo "Tests passed"'
         }
@@ -18,17 +22,13 @@ node {
 
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            // Push tagged version
-            app.push("${dockerTag}")
-
-            // Push latest version
-            sh "docker tag linuxgray039/test:${dockerTag} linuxgray039/test:latest"
-            sh "docker push linuxgray039/test:latest"
+            app.push("${env.BUILD_NUMBER}")
         }
     }
-
+    
     stage('Trigger ManifestUpdate') {
-        echo "Triggering updatemanifest job with tag ${dockerTag}"
-        build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: dockerTag)]
-    }
+                echo "triggering updatemanifestjob"
+                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+        }
 }
+
